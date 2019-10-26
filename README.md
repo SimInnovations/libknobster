@@ -13,7 +13,8 @@ Usage
 =====
 
 Right now only the Windows platform is supported.
-Open up the Visual Studio 2019 project in the 'vs2019' folder. There are no external dependencies.
+
+Open up the Visual Studio 2019 project in the 'vs2019' folder.
 
 API
 =====

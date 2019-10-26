@@ -37,7 +37,7 @@ enum KnobsterEvent libknobster_poll(struct Knobster* knobster);
 void libknobster_close(struct Knobster* knobster);
 ```
 
-Events returned by 'libknobster_poll'
+Events returned by 'libknobster_poll':
 ```C
 enum KnobsterEvent {
 	KNOBSTER_EVENT_NOT_CONNECTED,      // Knobster is still in non connected state. 'libknobster_connect' has not been called.	
@@ -57,10 +57,52 @@ enum KnobsterEvent {
 };
 ```
 
-Example
+Example (C)
 =======
 
+```C
+	// We will search for a max. of 8 Knobsters
+	struct Knobster* knobsters[8];
+	int nr_knobster = libknobster_scan(knobsters, 8);
 
+	// Check if we have found at least one
+	if (nr_knobster >= 1) {
+		// We will connect to the first knobster we find
+		struct Knobster* knobster = knobsters[0];
+		if (libknobster_connect(knobster) == 0) {
+		
+			// Now that we are connected, we can ask for new events
+			while (knobster != NULL) {
+				// Ask for a new event
+				enum KnobsterEvent event;
+				while ( (knobster != NULL) && ( (event = libknobster_poll(knobster)) != KNOBSTER_EVENT_NO_EVENT ) ) {
+				
+					// See what kind of event we got
+					switch (event) {
+					case KNOBSTER_EVENT_ERROR_NO_RESPONSE:
+					case KNOBSTER_EVENT_ERROR_TRANSFER:
+						// Connection problem with the Knobster
+						// Clean up knobster object
+						libknobster_close(knobster);
+						knobster = NULL;
+						break;
+
+					case KNOBSTER_EVENT_BUTTON_PRESSED:
+					case KNOBSTER_EVENT_BUTTON_RELEASED:
+					case KNOBSTER_EVENT_DIAL_MINOR_CW:
+					case KNOBSTER_EVENT_DIAL_MINOR_CCW:
+					case KNOBSTER_EVENT_DIAL_MAJOR_CW:
+					case KNOBSTER_EVENT_DIAL_MAJOR_CCW:
+						// Handle rotary encoder and button events here
+						break;
+					}
+				}
+
+				Sleep(1);
+			}
+		}
+	}
+```
 
 License
 =======

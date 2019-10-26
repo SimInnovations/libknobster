@@ -5,13 +5,6 @@
 	https://www.siminnovations.com/hardware/product/57-knobster
 
 	Functions are NOT thread safe, make sure to call all functions from the same thread.
-
-	
-	Example:
-
-	void main(int argc, const char* argv[]) {
-			
-	}
 */
 
 #pragma once

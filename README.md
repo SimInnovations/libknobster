@@ -60,48 +60,50 @@ enum KnobsterEvent {
 Example (C)
 =======
 
+Simple example trying to connect to the first Knobster it finds and polling for its events (rotary encoder or button changes)
+
 ```C
-	// We will search for a max. of 8 Knobsters
-	struct Knobster* knobsters[8];
-	int nr_knobster = libknobster_scan(knobsters, 8);
+// We will search for a max. of 8 Knobsters
+struct Knobster* knobsters[8];
+int nr_knobster = libknobster_scan(knobsters, 8);
 
-	// Check if we have found at least one
-	if (nr_knobster >= 1) {
-		// We will connect to the first knobster we find
-		struct Knobster* knobster = knobsters[0];
-		if (libknobster_connect(knobster) == 0) {
-		
-			// Now that we are connected, we can ask for new events
-			while (knobster != NULL) {
-				// Ask for a new event
-				enum KnobsterEvent event;
-				while ( (knobster != NULL) && ( (event = libknobster_poll(knobster)) != KNOBSTER_EVENT_NO_EVENT ) ) {
-				
-					// See what kind of event we got
-					switch (event) {
-					case KNOBSTER_EVENT_ERROR_NO_RESPONSE:
-					case KNOBSTER_EVENT_ERROR_TRANSFER:
-						// Connection problem with the Knobster
-						// Clean up knobster object
-						libknobster_close(knobster);
-						knobster = NULL;
-						break;
+// Check if we have found at least one
+if (nr_knobster >= 1) {
+	// We will connect to the first knobster we find
+	struct Knobster* knobster = knobsters[0];
+	if (libknobster_connect(knobster) == 0) {
+	
+		// Now that we are connected, we can ask for new events
+		while (knobster != NULL) {
+			// Ask for a new event
+			enum KnobsterEvent event;
+			while ( (knobster != NULL) && ( (event = libknobster_poll(knobster)) != KNOBSTER_EVENT_NO_EVENT ) ) {
+			
+				// See what kind of event we got
+				switch (event) {
+				case KNOBSTER_EVENT_ERROR_NO_RESPONSE:
+				case KNOBSTER_EVENT_ERROR_TRANSFER:
+					// Connection problem with the Knobster
+					// Clean up knobster object
+					libknobster_close(knobster);
+					knobster = NULL;
+					break;
 
-					case KNOBSTER_EVENT_BUTTON_PRESSED:
-					case KNOBSTER_EVENT_BUTTON_RELEASED:
-					case KNOBSTER_EVENT_DIAL_MINOR_CW:
-					case KNOBSTER_EVENT_DIAL_MINOR_CCW:
-					case KNOBSTER_EVENT_DIAL_MAJOR_CW:
-					case KNOBSTER_EVENT_DIAL_MAJOR_CCW:
-						// Handle rotary encoder and button events here
-						break;
-					}
+				case KNOBSTER_EVENT_BUTTON_PRESSED:
+				case KNOBSTER_EVENT_BUTTON_RELEASED:
+				case KNOBSTER_EVENT_DIAL_MINOR_CW:
+				case KNOBSTER_EVENT_DIAL_MINOR_CCW:
+				case KNOBSTER_EVENT_DIAL_MAJOR_CW:
+				case KNOBSTER_EVENT_DIAL_MAJOR_CCW:
+					// Handle rotary encoder and button events here
+					break;
 				}
-
-				Sleep(1);
 			}
+
+			Sleep(1);
 		}
 	}
+}
 ```
 
 License

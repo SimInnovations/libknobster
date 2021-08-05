@@ -41,6 +41,10 @@ int main(int argc, const char* argv[]) {
 						knobster = NULL;
 						break;
 
+					case KNOBSTER_EVENT_CHANNEL:
+						printf("Channel is %c\n", 'A' + libknobster_get_channel(knobster));
+						break;
+
 					case KNOBSTER_EVENT_BUTTON_PRESSED:
 						printf("Button is pressed\n");
 						break;

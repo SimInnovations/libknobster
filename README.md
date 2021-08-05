@@ -34,6 +34,10 @@ void libknobster_disconnect(struct Knobster* knobster);
 // Poll Knobster for new events
 enum KnobsterEvent libknobster_poll(struct Knobster* knobster);
 
+// Get knobster channel (0x00='A' through 0x0F='P')
+// Returns -1 when channel is not known, channel is available when 'KNOBSTER_EVENT_CONNECTED' event is fired
+int8_t libknobster_get_channel(struct Knobster* knobster);
+
 // Close a Knobster
 void libknobster_close(struct Knobster* knobster);
 ```
@@ -45,6 +49,8 @@ enum KnobsterEvent {
 
 	KNOBSTER_EVENT_INITIALIZING,       // Connection with the Knobster is being initialized
 
+    KNOBSTER_EVENT_CONNECTED,          // We got valid initial response from the knobster, we are connected
+	
 	KNOBSTER_EVENT_ERROR_NO_RESPONSE,  // Connection error, Knobster did not respond with correct internal message
 	KNOBSTER_EVENT_ERROR_TRANSFER,     // Connection error, something went from with the USB communication
 
@@ -89,6 +95,10 @@ if (nr_knobster >= 1) {
           libknobster_close(knobster);
           knobster = NULL;
           break;
+		  
+		case KNOBSTER_EVENT_CHANNEL:
+			printf("Channel is %c\n", 'A' + libknobster_get_channel(knobster));
+			break;
 
         case KNOBSTER_EVENT_BUTTON_PRESSED:
         case KNOBSTER_EVENT_BUTTON_RELEASED:

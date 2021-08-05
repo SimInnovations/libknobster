@@ -9,8 +9,10 @@
 
 #pragma once
 
+#include <stdint.h>
+
 #ifdef __cplusplus
-#ifdef WIN32
+#ifdef WIN
 #define DLL_EXPORT extern "C" __declspec(dllexport)
 #endif
 #ifdef __APPLE__
@@ -21,7 +23,7 @@
 #endif
 extern "C" {
 #else
-#ifdef WIN32
+#ifdef WIN
 #define DLL_EXPORT __declspec(dllexport)
 #endif
 #ifdef __APPLE__
@@ -38,6 +40,8 @@ enum KnobsterEvent {
 	KNOBSTER_EVENT_NOT_CONNECTED,      // Knobster is still in non connected state. 'libknobster_connect' has not been called.	
 
 	KNOBSTER_EVENT_INITIALIZING,       // Connection with the Knobster is being initialized
+
+	KNOBSTER_EVENT_CHANNEL,            // We got the channel form the knobster
 
 	KNOBSTER_EVENT_ERROR_NO_RESPONSE,  // Connection error, Knobster did not respond with correct internal message
 	KNOBSTER_EVENT_ERROR_TRANSFER,     // Connection error, something went from with the USB communication
@@ -63,6 +67,10 @@ DLL_EXPORT void libknobster_disconnect(struct Knobster* knobster);
 
 // Poll Knobster for new events
 DLL_EXPORT enum KnobsterEvent libknobster_poll(struct Knobster* knobster);
+
+// Get knobster channel (0x00='A' through 0x0F='P')
+// Returns -1 when channel is not known, channel is available when 'KNOBSTER_EVENT_CHANNEL' event is fired
+DLL_EXPORT int8_t libknobster_get_channel(struct Knobster* knobster);
 
 // Close a Knobster
 DLL_EXPORT void libknobster_close(struct Knobster* knobster);

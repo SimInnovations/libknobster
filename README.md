@@ -49,7 +49,7 @@ enum KnobsterEvent {
 
 	KNOBSTER_EVENT_INITIALIZING,       // Connection with the Knobster is being initialized
 
-    KNOBSTER_EVENT_CONNECTED,          // We got valid initial response from the knobster, we are connected
+	KNOBSTER_EVENT_CHANNEL,            // We got the channel form the knobster
 	
 	KNOBSTER_EVENT_ERROR_NO_RESPONSE,  // Connection error, Knobster did not respond with correct internal message
 	KNOBSTER_EVENT_ERROR_TRANSFER,     // Connection error, something went from with the USB communication
@@ -96,9 +96,9 @@ if (nr_knobster >= 1) {
           knobster = NULL;
           break;
 		  
-		case KNOBSTER_EVENT_CHANNEL:
-			printf("Channel is %c\n", 'A' + libknobster_get_channel(knobster));
-			break;
+        case KNOBSTER_EVENT_CHANNEL:
+          printf("Channel is %c\n", 'A' + libknobster_get_channel(knobster));
+          break;
 
         case KNOBSTER_EVENT_BUTTON_PRESSED:
         case KNOBSTER_EVENT_BUTTON_RELEASED:

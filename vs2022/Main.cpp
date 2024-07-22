@@ -28,7 +28,7 @@ int main(int argc, const char* argv[]) {
 
 				// Ask for a new event
 				enum KnobsterEvent event;
-				while ( (knobster != NULL) && ( (event = libknobster_poll(knobster)) != KNOBSTER_EVENT_NO_EVENT ) ) {
+				while ((knobster != NULL) && ((event = libknobster_poll(knobster)) != KNOBSTER_EVENT_NO_EVENT)) {
 					switch (event) {
 
 					case KNOBSTER_EVENT_ERROR_NO_RESPONSE:
@@ -42,7 +42,7 @@ int main(int argc, const char* argv[]) {
 						break;
 
 					case KNOBSTER_EVENT_CHANNEL:
-						printf("Channel is %c\n", 'A' + libknobster_get_channel(knobster));
+						printf("Got channel: %c\n", 'A' + libknobster_get_channel(knobster));
 						break;
 
 					case KNOBSTER_EVENT_BUTTON_PRESSED:

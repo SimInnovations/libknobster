@@ -72,6 +72,10 @@ DLL_EXPORT enum KnobsterEvent libknobster_poll(struct Knobster* knobster);
 // Returns -1 when channel is not known, channel is available when 'KNOBSTER_EVENT_CHANNEL' event is fired
 DLL_EXPORT int8_t libknobster_get_channel(struct Knobster* knobster);
 
+// Set knobster channel (0x00='A' through 0x0F='P')
+// 'KNOBSTER_EVENT_CHANNEL' event is fired when set successfully
+DLL_EXPORT void libknobster_set_channel(struct Knobster* knobster, int8_t channel);
+
 // Close a Knobster
 DLL_EXPORT void libknobster_close(struct Knobster* knobster);
 

@@ -40,7 +40,7 @@ int8_t libknobster_get_channel(struct Knobster* knobster);
 
 // Set knobster channel (0x00='A' through 0x0F='P')
 // 'KNOBSTER_EVENT_CHANNEL' event is fired when set successfully
-DLL_EXPORT void libknobster_set_channel(struct Knobster* knobster, int8_t channel);
+void libknobster_set_channel(struct Knobster* knobster, int8_t channel);
 
 // Close a Knobster
 void libknobster_close(struct Knobster* knobster);

@@ -1,3 +1,8 @@
-/vs2019/Win32/Debug
-/vs2019/.vs
-/vs2019/KnobsterExample.vcxproj.user
+/vs2026/Win32/Debug
+/vs2026/.vs
+/vs2026/KnobsterExample.vcxproj.user
+.vs
+/vs2026/KnobsterWrapper/obj
+/vs2026/KnobsterWrapperExample/obj
+/vs2026/KnobsterWrapper/bin
+/vs2026/KnobsterWrapperExample/bin

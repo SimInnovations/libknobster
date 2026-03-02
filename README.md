@@ -121,6 +121,9 @@ if (nr_knobster >= 1) {
 }
 ```
 
+Example (C#)
+=======
+
 ```C#
 using KnobsterWrapper;
 

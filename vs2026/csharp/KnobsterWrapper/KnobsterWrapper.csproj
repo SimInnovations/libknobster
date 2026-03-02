@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <KnobsterNativeBasePath>$(MSBuildProjectDirectory)\..\libknobster</KnobsterNativeBasePath>
+    <KnobsterNativeBasePath>$(MSBuildProjectDirectory)\..\..\libknobster\</KnobsterNativeBasePath>
     <KnobsterNativeDllPath>$(KnobsterNativeBasePath)\x64\libknobster.dll</KnobsterNativeDllPath>
   </PropertyGroup>
 
